@@ -1,27 +1,57 @@
+import { useState } from 'react'
+
 function App() {
+  const [mobileOpen, setMobileOpen] = useState(false)
   return (
-    <div className="min-h-screen bg-[#f8ede6] text-slate-900 scroll-smooth">
+    <div id="top" className="min-h-screen bg-[#f8ede6] text-slate-900 scroll-smooth">
       {/* Navbar */}
       <header className="sticky top-0 z-50 border-b border-slate-900/10 bg-[#f8ede6]/80 backdrop-blur">
         <nav className="mx-auto flex max-w-5xl items-center justify-between py-4">
-          <div className="flex items-center gap-3">
+          <a href="#top" className="flex items-center gap-3 cursor-pointer">
             <img
               src="/logo.png"
               alt="Site logo"
               className="h-20 w-20 rounded-full object-contain"
             />
             <div className="text-2xl md:text-3xl font-semibold leading-tight tracking-tight">
-              Anglo Chinese
-              <br className="hidden sm:block" />
-              Chess Association
+              <span className="block">Anglo Chinese</span>
+              <span className="block">Chess Association</span>
             </div>
-          </div>
-          <div className="flex items-center gap-10 text-base font-semibold">
+          </a>
+          <div className="hidden md:flex items-center gap-10 text-base font-semibold">
             <a className="hover:text-amber-700 transition" href="#about">Home</a>
             <a className="hover:text-amber-700 transition" href="#lessons">What we offer</a>
             <a className="hover:text-amber-700 transition" href="#events">Our Teachers</a>
           </div>
+          <button
+            type="button"
+            className="md:hidden inline-flex items-center justify-center rounded-xl p-2 mr-3 sm:mr-4 text-slate-600 bg-white/60 shadow-sm border border-slate-300/40 hover:bg-white focus:outline-none"
+            aria-label="Toggle navigation"
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((o) => !o)}
+          >
+            {mobileOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
+                <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 9.94l5.47-4.47a.75.75 0 011.06 1.06L13.06 11l5.47 4.47a.75.75 0 01-1.06 1.06L12 12.06l-5.47 4.47a.75.75 0 01-1.06-1.06L10.94 11 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            )}
+          </button>
         </nav>
+        {mobileOpen && (
+          <div className="md:hidden border-t border-slate-900/10 bg-[#f8ede6]">
+            <div className="mx-auto max-w-5xl py-3 px-4 flex flex-col gap-3 text-base font-semibold">
+              <a className="rounded-xl bg-white shadow-sm px-4 py-3 hover:bg-white/80 transition" href="#about" onClick={() => setMobileOpen(false)}>Home</a>
+              <a className="rounded-xl bg-white shadow-sm px-4 py-3 hover:bg-white/80 transition" href="#lessons" onClick={() => setMobileOpen(false)}>What we offer</a>
+              <a className="rounded-xl bg-white shadow-sm px-4 py-3 hover:bg-white/80 transition" href="#events" onClick={() => setMobileOpen(false)}>Our Teachers</a>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Hero */}
@@ -31,16 +61,16 @@ function App() {
       >
         {/* Background chess image */}
         <div 
-          className="absolute top-0 bottom-0 left-10 right-10 bg-cover bg-left-bottom bg-no-repeat opacity-100 scale-[0.84] origin-left-bottom"
+          className="hidden lg:block absolute top-0 bottom-0 left-10 right-10 bg-cover bg-left-bottom bg-no-repeat opacity-100 scale-[1] origin-left-bottom"
           style={{ backgroundImage: 'url(/bg.png)' }}
         />
         
         {/* Content container */}
-        <div className="relative mx-auto max-w-7xl pt-10 pb-20">
+        <div className="relative mx-auto max-w-7xl pt-4 md:pt-10 pb-0 md:pb-20">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-end">
-            {/* Dark overlay box with text */}
-            <div className="relative z-0 w-full rounded-2xl bg-black/70 p-8 text-white shadow-2xl lg:w-[55%] lg:p-10">
-              <div className="space-y-6 text-base leading-relaxed lg:text-lg">
+            {/* Hero text container: overlay only on desktop */}
+            <div className="relative z-0 w-full p-8 text-slate-900 lg:w-[55%] lg:p-10 lg:rounded-2xl lg:bg-black/70 lg:text-white lg:shadow-2xl">
+              <div className="space-y-6 text-xl font-semibold leading-relaxed lg:text-lg lg:font-normal">
                 <p>
                   Welcome to the Anglo Chinese Chess Association (ACCA), a dynamic platform where passion for chess and Chinese chess (Xiangqi) converges with cultural exchange and community engagement.
                 </p>
@@ -57,18 +87,19 @@ function App() {
             </div>
           </div>
         </div>
+        <div className="block lg:hidden w-full h-52 mt-2.5 bg-[url('/bg.png')] bg-bottom bg-no-repeat bg-contain" aria-label="Chess pieces image" />
       </section>
 
       {/* What we offer */}
       <section id="lessons" className="bg-[#f8ede6]">
-        <div className="mx-auto max-w-7xl py-16">
+        <div className="mx-auto max-w-7xl py-16 px-4 sm:px-6">
           <div className="grid gap-6 md:grid-cols-3">
             {/* Chess & Chinese Chess Lectures */}
             <div className="overflow-hidden rounded-lg shadow-lg border-1">
               <div className="bg-[#7b3306] px-6 py-4">
                 <h3 className="text-xl font-bold text-white">Chess & Chinese Chess Lectures</h3>
               </div>
-              <div className="bg-[#ffeed4] px-6 py-6 space-y-4">
+              <div className="bg-[#ffeed4] px-6 py-6 space-y-4 font-semibold">
                 <p className="text-slate-900">
                   Tailored lessons designed to develop core skills, critical thinking, and strategy.
                 </p>
@@ -84,9 +115,9 @@ function App() {
             {/* Competitions and Tournaments */}
             <div className="overflow-hidden rounded-lg shadow-lg border-1">
               <div className="bg-[#7b3306] px-6 py-4">
-                <h3 className="text-xl font-bold text-white">Chess & Chinese Chess Lectures</h3>
+                <h3 className="text-xl font-bold text-white">Competitions and Tournaments</h3>
               </div>
-              <div className="bg-[#ffeed4] px-6 py-6 space-y-4">
+              <div className="bg-[#ffeed4] px-6 py-6 space-y-4 font-semibold">
                 <p className="text-slate-900">
                 Regularly organized tournaments to give students a platform to showcase their skills and gain real-world experience.
                 </p>
@@ -101,9 +132,9 @@ function App() {
             {/* Educational Resources */}
             <div className="overflow-hidden rounded-lg shadow-lg border-1">
               <div className="bg-[#7b3306] px-6 py-4">
-                <h3 className="text-xl font-bold text-white">Chess & Chinese Chess Lectures</h3>
+                <h3 className="text-xl font-bold text-white">Educational Resources</h3>
               </div>
-              <div className="bg-[#ffeed4] px-6 py-6 space-y-4">
+              <div className="bg-[#ffeed4] px-6 py-6 space-y-4 font-semibold">
                 <p className="text-slate-900">
                 Comprehensive teaching materials and hands-on guidance to ensure students excel.
                 </p>
@@ -120,7 +151,7 @@ function App() {
 
       {/* Our Teachers */}
       <section id="events" className="bg-[#f8ede6]">
-        <div className="mx-auto max-w-7xl py-16 space-y-16">
+        <div className="mx-auto max-w-7xl py-16 px-4 sm:px-6 space-y-16">
           {/* Photo Gallery */}
           <div className="space-y-4">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">

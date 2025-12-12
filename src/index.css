@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @source "./index.html" "./src/**/*.{js,jsx,ts,tsx}";
 
+:root, html {
+  scroll-behavior: smooth;
+}
+
 :root {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
